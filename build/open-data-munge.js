@@ -39,7 +39,7 @@
   let per_fmt = d3.format(",.1%");
 
   function get_csv_and_parse(url) {
-    fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true})).then(d => d.data);
+    return fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true})).then(d => d.data)
   }
 
   function timeparse_quarter_mid(q) {
