@@ -18,3 +18,4 @@ tape("timeparse_quarter_end", function(test) {
   test.equal(exp.getTime(), act.getTime());
   test.end();
 });
+
