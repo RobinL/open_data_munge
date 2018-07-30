@@ -1,11 +1,12 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-format'), require('lodash'), require('d3-time-format'), require('alasql')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'd3-format', 'lodash', 'd3-time-format', 'alasql'], factory) :
-  (factory((global['open-data'] = {}),null,global._,null,null));
-}(this, (function (exports,d3,_,d3TimeFormat,alasql) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-format'), require('lodash'), require('papaparse'), require('d3-time-format'), require('alasql')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'd3-format', 'lodash', 'papaparse', 'd3-time-format', 'alasql'], factory) :
+  (factory((global['open-data'] = {}),null,global._,null,null,null));
+}(this, (function (exports,d3,_,Papa,d3TimeFormat,alasql) { 'use strict';
 
   d3 = d3 && d3.hasOwnProperty('default') ? d3['default'] : d3;
   _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
+  Papa = Papa && Papa.hasOwnProperty('default') ? Papa['default'] : Papa;
   alasql = alasql && alasql.hasOwnProperty('default') ? alasql['default'] : alasql;
 
   function percentage_change(ts, ts_key, period='qoq') {
@@ -36,6 +37,10 @@
   }
 
   let per_fmt = d3.format(",.1%");
+
+  function get_csv_and_parse(url) {
+    fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true})).then(d => d.data);
+  }
 
   function timeparse_quarter_mid(q) {
       q = q.replace("Q1", "-02-15");
@@ -104,6 +109,7 @@
   // A timeseries must have a single, unique index representing time.
 
   exports.percentage_change = percentage_change;
+  exports.get_csv_and_parse = get_csv_and_parse;
   exports.timeparse_quarter_mid = timeparse_quarter_mid;
   exports.timeparse_quarter_end = timeparse_quarter_end;
   exports.DataTable = DataTable;

@@ -1,5 +1,6 @@
 import d3 from "d3-format";
 import _ from "lodash";
+import Papa from "papaparse"
 
 export function percentage_change(ts, ts_key, period='qoq') {
    let comparator = period_to_array_index(period)
@@ -29,3 +30,7 @@ function period_to_array_index(period) {
 }
 
 let per_fmt = d3.format(",.1%")
+
+export function get_csv_and_parse(url) {
+  fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true})).then(d => d.data)
+}
