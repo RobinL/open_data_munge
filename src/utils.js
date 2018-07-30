@@ -32,5 +32,5 @@ function period_to_array_index(period) {
 let per_fmt = d3.format(",.1%")
 
 export function get_csv_and_parse(url) {
-  fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true})).then(d => d.data)
+  return fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true})).then(d => d.data)
 }
