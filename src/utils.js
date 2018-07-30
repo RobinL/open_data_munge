@@ -1,7 +1,7 @@
 import d3 from "d3-format";
 import _ from "lodash";
 
- export function percentage_change(ts, ts_key, period='qoq') {
+export function percentage_change(ts, ts_key, period='qoq') {
    let comparator = period_to_array_index(period)
 
    let series = ts[ts_key]

@@ -1,5 +1,4 @@
 import {timeParse} from "d3-time-format";
-import {timeMonth, timeDay} from "d3-time";
 
 export function timeparse_quarter_mid(q) {
     q = q.replace("Q1", "-02-15")
