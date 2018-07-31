@@ -36,6 +36,7 @@
   let per_fmt = d3.format(",.1%");
   let int_fmt = d3.format(",.0f");
 
+
   function percentage_change(values_comparison, value_key) {
 
       let base = values_comparison['base'][value_key];
@@ -219,6 +220,8 @@
   exports.increase_decrease_symbol = increase_decrease_symbol;
   exports.increase_decrease_text = increase_decrease_text;
   exports.absolute_change = absolute_change;
+  exports.per_fmt = per_fmt;
+  exports.int_fmt = int_fmt;
   exports.DataTable = DataTable;
   exports.TimeSeries = TimeSeries;
 

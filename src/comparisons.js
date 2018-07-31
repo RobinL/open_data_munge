@@ -1,7 +1,8 @@
 import d3 from "d3-format";
 
-let per_fmt = d3.format(",.1%")
-let int_fmt = d3.format(",.0f")
+export let per_fmt = d3.format(",.1%")
+export let int_fmt = d3.format(",.0f")
+
 
 export function percentage_change(values_comparison, value_key) {
 
