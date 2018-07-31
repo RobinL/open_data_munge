@@ -39,8 +39,7 @@ export function DataTable(raw_data) {
         columns: this.columns,
         get_column: this.get_column,
         mutate: this.mutate,
-        sql: this.sql,
-        db: this.db
+        sql: this.sql
     }
 
 }
