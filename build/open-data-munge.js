@@ -149,7 +149,7 @@
         }
       }
 
-      function get_values_comparison(periods, base="latest") {
+      function get_values_comparison(base="latest", periods) {
         let val_base = get_value_from_index(base);
         let val_comparator = get_n_periods_ago(base, periods);
 
