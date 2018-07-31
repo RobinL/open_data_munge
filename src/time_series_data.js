@@ -67,18 +67,18 @@ export function TimeSeries(raw_data, index_column) {
     let index_dict = _.fromPairs(_.map(index, (d, i) => [d,i]))
 
 
-    function get_greatest_value(val_col) {
+    function get_greatest_row(val_col) {
        return _.maxBy(raw_data, d => d[val_col])
     }
 
-    function get_n_periods_ago(base="latest", periods) {
+    function get_n_periods_ago_row(base="latest", periods) {
        let base_index
 
 
        if (base == "latest") {
-         let latest_value = get_latest_value()
+         let latest_row = get_latest_row()
 
-         base_index = index_dict[latest_value[index_column]]
+         base_index = index_dict[latest_row[index_column]]
 
 
        } else {
@@ -91,34 +91,35 @@ export function TimeSeries(raw_data, index_column) {
 
     }
 
-    function get_value_from_index(index_value) {
+    function get_row_from_index(index_value) {
       if (index_value == "latest") {
-        return get_latest_value()
+        return get_latest_row()
       } else {
         let index_slice = index_dict[index_value]
         return raw_data[index_slice]
       }
     }
 
-    function get_values_comparison(base="latest", periods) {
-      let val_base = get_value_from_index(base)
-      let val_comparator = get_n_periods_ago(base, periods)
+    function get_row_comparison(base="latest", periods) {
+      let val_base = get_row_from_index(base)
+      let val_comparator = get_n_periods_ago_row(base, periods)
 
       return {"base": val_base, "comparator": val_comparator}
     }
 
-    function get_latest_value() {
+    function get_latest_row() {
         return raw_data.slice(-1)[0]
     }
+
 
     return {
         data: this.data,
         columns: this.columns,
         get_column: get_column,
-        get_latest_value: get_latest_value,
-        get_n_periods_ago: get_n_periods_ago,
-        get_values_comparison: get_values_comparison,
-        get_greatest_value: get_greatest_value
+        get_latest_row: get_latest_row,
+        get_n_periods_ago_row: get_n_periods_ago_row,
+        get_row_comparison: get_row_comparison,
+        get_greatest_row: get_greatest_row
     }
 
 }
