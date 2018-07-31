@@ -80,7 +80,7 @@
       this.sql = function(sql) {
           me.db.tables.df.data = me.data;
           let returned_data =  me.db.exec(sql);
-          return new DataTable(returned_data)
+          return returned_data
       };
 
       return {
