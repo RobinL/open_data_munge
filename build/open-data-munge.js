@@ -88,7 +88,8 @@
           columns: this.columns,
           get_column: this.get_column,
           mutate: this.mutate,
-          sql: this.sql
+          sql: this.sql,
+          db: this.db
       }
 
   }
