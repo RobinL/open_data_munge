@@ -6,4 +6,4 @@ export {timeparse_quarter_end} from "./src/quarter_parse";
 
 export {percentage_change} from "./src/comparisons.js"
 
-export {DataTable} from "./src/time_series_data"
+export {DataTable, TimeSeries} from "./src/time_series_data"
