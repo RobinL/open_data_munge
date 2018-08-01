@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('papaparse'), require('d3-time-format'), require('d3-format'), require('lodash'), require('alasql'), require('@observablehq/notebook-stdlib')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'papaparse', 'd3-time-format', 'd3-format', 'lodash', 'alasql', '@observablehq/notebook-stdlib'], factory) :
-  (factory((global['open-data'] = {}),null,null,null,global._,null,null));
-}(this, (function (exports,Papa,d3TimeFormat,d3,_,alasql,notebookStdlib) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('papaparse'), require('d3-time-format'), require('d3-format'), require('@observablehq/notebook-stdlib'), require('lodash'), require('alasql')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'papaparse', 'd3-time-format', 'd3-format', '@observablehq/notebook-stdlib', 'lodash', 'alasql'], factory) :
+  (factory((global['open-data'] = {}),null,null,null,null,global._,null));
+}(this, (function (exports,Papa,d3TimeFormat,d3,notebookStdlib,_,alasql) { 'use strict';
 
   Papa = Papa && Papa.hasOwnProperty('default') ? Papa['default'] : Papa;
   d3 = d3 && d3.hasOwnProperty('default') ? d3['default'] : d3;
@@ -90,6 +90,54 @@
     return int_fmt(Math.abs(base-comp))
   }
 
+  let lib = new notebookStdlib.Library();
+
+  function select_box_within_html(elem){
+      let a = lib.Generators.observe(change => {
+        let selectbox =  elem.getElementsByTagName('select')[0];
+        // An event listener to yield the element’s new value.
+        const inputted = () => change(selectbox.value);
+
+        // Attach the event listener.
+        selectbox.addEventListener("input", inputted);
+
+        // Yield the element’s initial value.
+        change(selectbox.value);
+
+        // Detach the event listener when the generator is disposed.
+        return () => selectbox.removeEventListener("input", inputted);
+      });
+    return a
+  }
+
+  function htmlTable(data,fontSize){
+      const table = document.createElement("table");
+      const trHeader = document.createElement("tr");
+      document.createElement("tr");
+      const thHeaderData = Object.keys(data[0]);
+      const thRowData = data;
+      thHeaderData.map(data => {
+        const tempTh = document.createElement("th");
+        tempTh.appendChild(document.createTextNode(data));
+        trHeader.appendChild(tempTh);
+      });
+      table.appendChild(trHeader);
+      thRowData.map((data,index) => {
+        if (index) {
+          const tdKeys = Object.keys(data);
+          const tempTr = document.createElement("tr");
+          tdKeys.map((data2) => {
+            const tempTd = document.createElement("td");
+            tempTd.appendChild(document.createTextNode(data[data2]));
+            tempTr.appendChild(tempTd).style.fontSize = fontSize ? fontSize : "small";
+          });
+          table.appendChild(tempTr);
+        }
+
+      });
+      return table;
+    }
+
   // A DataTable is an abstraction that makes it easy to derive new columns and run sql.
   // Deriving new columns -> modify in place
   // Running sql -> return new DataTable
@@ -123,6 +171,10 @@
           return returned_data
       };
 
+      this.htmlTable = function(){
+          return htmlTable(me.data)
+      };
+
       return {
           data: this.data,
           columns: this.columns,
@@ -141,12 +193,11 @@
       let me = this;
 
       if ((typeof (raw_data) == "object") && (raw_data.length > 0)) {
+          raw_data = _.sortBy(raw_data, index_column);
           this.data = raw_data;
       } else {
           throw ("Data must be an array of objects with length > 0")
       }
-
-      raw_data = _.sortBy(raw_data, index_column);
 
       function get_column(colname) {
           return _.map(me.data, d => d[colname])
@@ -155,6 +206,9 @@
       let index = get_column(index_column);
       let index_dict = _.fromPairs(_.map(index, (d, i) => [d,i]));
 
+      this.htmlTable = function(){
+          return htmlTable(me.data)
+      };
 
       function get_greatest_row(val_col) {
          return _.maxBy(raw_data, d => d[val_col])
@@ -212,26 +266,6 @@
       }
 
   }
-
-  let lib = new notebookStdlib.Library();
-
-  function select_box_within_html(elem){
-      let a = lib.Generators.observe(change => {
-        let selectbox =  elem.getElementsByTagName('select')[0];
-        // An event listener to yield the element’s new value.
-        const inputted = () => change(selectbox.value);
-
-        // Attach the event listener.
-        selectbox.addEventListener("input", inputted);
-
-        // Yield the element’s initial value.
-        change(selectbox.value);
-
-        // Detach the event listener when the generator is disposed.
-        return () => selectbox.removeEventListener("input", inputted);
-      });
-    return a
-    }
 
   exports.get_csv_and_parse = get_csv_and_parse;
   exports.timeparse_quarter_mid = timeparse_quarter_mid;
