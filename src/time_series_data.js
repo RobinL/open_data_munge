@@ -35,8 +35,8 @@ export function DataTable(raw_data) {
         return returned_data
     }
 
-    this.html_table = function(){
-        return html_table(me.data)
+    this.html_table = function(numrows=5){
+        return html_table(me.data, "small", numrows)
     }
 
     return {
@@ -71,8 +71,8 @@ export function TimeSeries(raw_data, index_column) {
     let index = get_column(index_column)
     let index_dict = _.fromPairs(_.map(index, (d, i) => [d,i]))
 
-    this.html_table = function(){
-        return html_table(me.data)
+    this.html_table = function(numrows=5){
+        return html_table(me.data, "small", numrows)
     }
 
     function get_greatest_row(val_col) {
