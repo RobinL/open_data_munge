@@ -111,7 +111,7 @@
   }
 
   function html_table(data,fontSize="small", numrows=5){
-    let dataslice = data.slice(0,numrows);
+    let dataslice = data.slice(0,numrows+1);
     const table = document.createElement("table");
       const trHeader = document.createElement("tr");
       document.createElement("tr");
