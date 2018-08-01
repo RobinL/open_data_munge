@@ -21,26 +21,27 @@ export function select_box_within_html(elem){
   return a
 }
 
-export default function html_table(data,fontSize){
-    const table = document.createElement("table");
+export default function html_table(data,fontSize="small", numrows=5){
+  let dataslice = data.slice(0,numrows)
+  const table = document.createElement("table");
     const trHeader = document.createElement("tr");
     document.createElement("tr");
-    const thHeaderData = Object.keys(data[0]);
-    const thRowData = data;
-    thHeaderData.map(data => {
+    const thHeaderData = Object.keys(dataslice[0]);
+    const thRowData = dataslice;
+    thHeaderData.map(dataslice => {
       const tempTh = document.createElement("th")
-      tempTh.appendChild(document.createTextNode(data))
+      tempTh.appendChild(document.createTextNode(dataslice))
       trHeader.appendChild(tempTh)
     })
     table.appendChild(trHeader)
-    thRowData.map((data,index) => {
+    thRowData.map((dataslice,index) => {
       if (index) {
-        const tdKeys = Object.keys(data);
+        const tdKeys = Object.keys(dataslice);
         const tempTr = document.createElement("tr")
         tdKeys.map((data2) => {
           const tempTd = document.createElement("td")
-          tempTd.appendChild(document.createTextNode(data[data2]))
-          tempTr.appendChild(tempTd).style.fontSize = fontSize ? fontSize : "small"
+          tempTd.appendChild(document.createTextNode(dataslice[data2]))
+          tempTr.appendChild(tempTd).style.fontSize = fontSize
         })
         table.appendChild(tempTr)
       }
