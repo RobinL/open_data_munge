@@ -110,7 +110,7 @@
     return a
   }
 
-  function htmlTable(data,fontSize){
+  function html_table(data,fontSize){
       const table = document.createElement("table");
       const trHeader = document.createElement("tr");
       document.createElement("tr");
@@ -171,8 +171,8 @@
           return returned_data
       };
 
-      this.htmlTable = function(){
-          return htmlTable(me.data)
+      this.html_table = function(){
+          return html_table(me.data)
       };
 
       return {
@@ -180,7 +180,8 @@
           columns: this.columns,
           get_column: this.get_column,
           mutate: this.mutate,
-          sql: this.sql
+          sql: this.sql,
+          html_table: this.html_table
       }
 
   }
@@ -206,8 +207,8 @@
       let index = get_column(index_column);
       let index_dict = _.fromPairs(_.map(index, (d, i) => [d,i]));
 
-      this.htmlTable = function(){
-          return htmlTable(me.data)
+      this.html_table = function(){
+          return html_table(me.data)
       };
 
       function get_greatest_row(val_col) {
@@ -258,6 +259,7 @@
       return {
           data: this.data,
           columns: this.columns,
+          html_table: this.html_table,
           get_column: get_column,
           get_latest_row: get_latest_row,
           get_n_periods_ago_row: get_n_periods_ago_row,

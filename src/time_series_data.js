@@ -1,6 +1,6 @@
 import _ from "lodash";
 import alasql from "alasql";
-import htmlTable from "./observable"
+import html_table from "./observable"
 
 // A DataTable is an abstraction that makes it easy to derive new columns and run sql.
 // Deriving new columns -> modify in place
@@ -35,8 +35,8 @@ export function DataTable(raw_data) {
         return returned_data
     }
 
-    this.htmlTable = function(){
-        return htmlTable(me.data)
+    this.html_table = function(){
+        return html_table(me.data)
     }
 
     return {
@@ -44,7 +44,8 @@ export function DataTable(raw_data) {
         columns: this.columns,
         get_column: this.get_column,
         mutate: this.mutate,
-        sql: this.sql
+        sql: this.sql,
+        html_table: this.html_table
     }
 
 }
@@ -70,8 +71,8 @@ export function TimeSeries(raw_data, index_column) {
     let index = get_column(index_column)
     let index_dict = _.fromPairs(_.map(index, (d, i) => [d,i]))
 
-    this.htmlTable = function(){
-        return htmlTable(me.data)
+    this.html_table = function(){
+        return html_table(me.data)
     }
 
     function get_greatest_row(val_col) {
@@ -122,6 +123,7 @@ export function TimeSeries(raw_data, index_column) {
     return {
         data: this.data,
         columns: this.columns,
+        html_table: this.html_table,
         get_column: get_column,
         get_latest_row: get_latest_row,
         get_n_periods_ago_row: get_n_periods_ago_row,

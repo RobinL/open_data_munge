@@ -21,7 +21,7 @@ export function select_box_within_html(elem){
   return a
 }
 
-export default function htmlTable(data,fontSize){
+export default function html_table(data,fontSize){
     const table = document.createElement("table");
     const trHeader = document.createElement("tr");
     document.createElement("tr");
