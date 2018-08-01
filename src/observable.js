@@ -1,4 +1,4 @@
-import {Generators} from "@observablehq/notebook-stdlib";
+import Generators from "@observablehq/notebook-stdlib";
 
 export function select_box_within_html(elem){
     let a = Generators.observe(change => {
