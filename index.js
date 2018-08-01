@@ -2,6 +2,8 @@ export {get_csv_and_parse} from "./src/utils";
 
 export {timeparse_quarter_mid, timeparse_quarter_end} from "./src/quarter_parse";
 
-export {percentage_change, increase_decrease_symbol, increase_decrease_text, absolute_change, per_fmt, int_fmt} from "./src/comparisons.js"
+export {percentage_change, increase_decrease_symbol, increase_decrease_text, absolute_change, per_fmt, int_fmt} from "./src/comparisons.js";
 
-export {DataTable, TimeSeries} from "./src/time_series_data"
+export {DataTable, TimeSeries} from "./src/time_series_data";
+
+export {select_box_within_html} from "./src/observable.js";
