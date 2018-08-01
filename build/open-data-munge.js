@@ -2,13 +2,12 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('papaparse'), require('d3-time-format'), require('d3-format'), require('lodash'), require('alasql'), require('@observablehq/notebook-stdlib')) :
   typeof define === 'function' && define.amd ? define(['exports', 'papaparse', 'd3-time-format', 'd3-format', 'lodash', 'alasql', '@observablehq/notebook-stdlib'], factory) :
   (factory((global['open-data'] = {}),null,null,null,global._,null,null));
-}(this, (function (exports,Papa,d3TimeFormat,d3,_,alasql,Generators) { 'use strict';
+}(this, (function (exports,Papa,d3TimeFormat,d3,_,alasql,notebookStdlib) { 'use strict';
 
   Papa = Papa && Papa.hasOwnProperty('default') ? Papa['default'] : Papa;
   d3 = d3 && d3.hasOwnProperty('default') ? d3['default'] : d3;
   _ = _ && _.hasOwnProperty('default') ? _['default'] : _;
   alasql = alasql && alasql.hasOwnProperty('default') ? alasql['default'] : alasql;
-  Generators = Generators && Generators.hasOwnProperty('default') ? Generators['default'] : Generators;
 
   function get_csv_and_parse(url) {
     return fetch(url).then(d => d.text()).then(d => Papa.parse(d, {header:true, dynamicTyping:true, skipEmptyLines:true})).then(d => d.data)
@@ -214,8 +213,10 @@
 
   }
 
+  let lib = new notebookStdlib.Library();
+
   function select_box_within_html(elem){
-      let a = Generators.observe(change => {
+      let a = lib.Generators.observe(change => {
         let selectbox =  elem.getElementsByTagName('select')[0];
         // An event listener to yield the element’s new value.
         const inputted = () => change(selectbox.value);
