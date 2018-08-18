@@ -191,6 +191,7 @@
            return _.maxBy(raw_data, d => d[val_col])
         }
 
+
         function get_n_periods_ago_row(base="latest", periods) {
            let base_index;
 
@@ -240,7 +241,8 @@
             get_latest_row: get_latest_row,
             get_n_periods_ago_row: get_n_periods_ago_row,
             get_row_comparison: get_row_comparison,
-            get_greatest_row: get_greatest_row
+            get_greatest_row: get_greatest_row,
+            index: index
         }
 
     }
