@@ -29,7 +29,7 @@ export function DataTable(raw_data) {
         return this
     }
 
-    this.mutate_row = function(in_column, out_column, fn) {
+    this.mutate_row = function(fn) {
         this.data = _.map(this.data, function (d) { return fn(d)})
         return this
     }
