@@ -48,7 +48,8 @@ export function DataTable(raw_data) {
         data: this.data,
         columns: this.columns,
         get_column: this.get_column,
-        mutate: this.mutate,
+        mutate_col: this.mutate_col,
+        mutate_row: this.mutate_row,
         sql: this.sql,
         html_table: this.html_table
     }
