@@ -24,8 +24,13 @@ export function DataTable(raw_data) {
         return _.map(this.data, d => d[colname])
     }
 
-    this.mutate = function(in_column, out_column, fn) {
+    this.mutate_col = function(in_column, out_column, fn) {
         _.map(this.data, function (d) { d[out_column] = fn(d[in_column])})
+        return this
+    }
+
+    this.mutate_row = function(in_column, out_column, fn) {
+        this.data = _.map(this.data, function (d) { return fn(d)})
         return this
     }
 
