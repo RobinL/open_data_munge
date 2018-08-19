@@ -21,7 +21,7 @@
     function timeparse_quarter_end(q) {
         q = q.replace("Q1", "-03-31");
         q = q.replace("Q2", "-06-30");
-        q = q.replace("Q3", "-09-31");
+        q = q.replace("Q3", "-09-30");
         q = q.replace("Q4", "-12-31");
         let par = d3TimeFormat.timeParse("%Y-%m-%d");
         return par(q)
