@@ -71,7 +71,7 @@
       } else if (base < comp) {
         return '▼'
       } else {
-        return '-'
+        return '—'
       }
 
     }

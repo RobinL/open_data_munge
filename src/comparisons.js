@@ -43,7 +43,7 @@ export function increase_decrease_symbol(values_comparison, value_key) {
   } else if (base < comp) {
     return '▼'
   } else {
-    return '-'
+    return '—'
   }
 
 }
